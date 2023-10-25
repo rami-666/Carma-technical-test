@@ -99,3 +99,70 @@ for(var i = 0; i < 100; i++) {
 the output of the first module would reveale the contents of the arr inside test.js to be ["hello"]. however the output of the second module that is used afterwards will reveal the updated contents of arr inside test.js to be ["hello", "another"].
 
 The above output is due to the fact that both modules are referencing the same array, which is the arr variable inside the test.js file, and appending values to it. This would explain why the changes that module 1 made to the array were reflected when module 2 printed the value of the array.
+
+## Exercise
+
+### Luhn Algorithm
+
+The Luhn algorithm is a simple checksum formula used to validate a variety of identification numbers, such as credit card numbers. The algorithm works by calculating a check digit on the partial account number, which is then included as the last (rightmost) digit of the full account number. The Luhn checksum works by doubling every second digit from the right, subtracting 9 from the product if it's greater than 9, and then summing all the digits. If the sum modulo 10 is equal to 0, then the number is valid according to the Luhn formula
+
+This algorithm will be used in our implementation to validate that the user has entered a valid credit card number before we encrypt and add to the databse.
+
+## Encryption Algorithm
+
+the encryption algorithm that will be used is the aes-256-cbc wich takes in an initialization vector and a certain key. This encryption was chosen due to the following factors:
+
+1. 2-way encryption: an encryption that can be decrypted at any point in time is important since we might need to retrieve the real value of the credit card number at some point in time. for the purpose of this demo, both encryption key and initalization vector will be stored within the code base.
+
+2. high security: AES 256 is an industry standard encryption which achieves diffusion and confusion where the time complexity of a potential brute force attack increaes exponentially with the increase of a single byte of key length.
+
+## Code Architecture
+
+the code is divided into 3 main subdirectories
+
+1. root directory: which contains the app.js file, which is the main node.js express server
+2. client: which contains a react application (along with the build to be used by the node application)
+3. database: which contains 3 files
+    - databseConstants: holds connection string to our postgres server
+    - database: contains initialization code which connects to the server using the connection string and defines a new table called credit_cards
+    - queries: contains querying functions, namely inserting an entry (along with encryption) and retrieving all recorded credit cards (along with decryption)
+
+## Prerequisites
+
+### postgresql
+For this code to function correctly, postgres must be installed and configured properly for a working connection with the application. this configuration includes the following
+
+```javascript
+{
+    user: 'postgres',
+    host: 'localhost',
+    database: 'postgres',
+    port: '5432'
+}
+```
+
+note that the password is assumed nonexistant, should there be a password in your current configuration, you can add i as follows
+
+```javascript
+{
+    user: 'postgres',
+    host: 'localhost',
+    database: 'postgres',
+    password: 'your_password_here',
+    port: '5432'
+}
+```
+
+the following version of postgresql was used in development
+
+```bash
+psql (PostgreSQL) 14.9
+```
+
+### node
+
+This implementation was developed usign the following node version
+
+```bash
+v20.7.0
+```
