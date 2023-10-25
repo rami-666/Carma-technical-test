@@ -166,3 +166,27 @@ This implementation was developed usign the following node version
 ```bash
 v20.7.0
 ```
+
+## Instalation steps
+
+To properly install and launch the project, follow the following steps:
+
+1. clone the repo to your working directory
+
+2. move to the directory of the project
+
+```bash
+cd Carma-technical-test
+```
+
+3. install the dependencies
+
+```bash
+npm install
+```
+
+4. run the server
+
+```bash
+npm start
+```
