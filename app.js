@@ -30,6 +30,9 @@ app.post('/creditCards', async (req, res) => {
   if(!luhn(card_number)) {
     console.log("invalid card")
     res.status(400).send({ error: "Invalid credit card number" })
+  } else if(cvv.length != 3) {
+    console.log("invalid cvc")
+    res.status(400).send({ error: "Invalid cvc number"})
   } else {
     try {
       const card = await insertData(card_number, cvv, card_holder_name, expiration_date);

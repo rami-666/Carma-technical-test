@@ -9,6 +9,7 @@ import { format } from "date-fns";
 export default function App() {
   const [confirmed, setConfirmed] = useState(false);
   const [invalid, setInvalid] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("No Errors Found")
   const [name, setName] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [date, setDate] = useState("01/23");
@@ -32,8 +33,10 @@ export default function App() {
       .then(data => {
         console.log("Submit response: ", data)
         if(data.error) {
+          setErrorMessage(data.error)
           setInvalid(true);
         } else {
+          setErrorMessage("No Errors Found")
           setInvalid(false);
         }
       })
@@ -148,7 +151,7 @@ export default function App() {
             )}
 
             {confirmed && !invalid && <ThankYou setConfirmed={setConfirmed} />}
-            {confirmed && invalid && <InvalidCard setConfirmed={setConfirmed} />}
+            {confirmed && invalid && <InvalidCard setConfirmed={setConfirmed} errorMessage={errorMessage} />}
           </div>
         </div>
       </section>
@@ -178,16 +181,16 @@ function ThankYou({ setConfirmed }) {
   );
 }
 
-function InvalidCard({ setConfirmed }) {
+function InvalidCard({ setConfirmed, errorMessage }) {
   return (
     <>
       <div className="thank-you flex flex-col items-center justify-center lg:h-screen max-w-lg mx-auto">
         <img src={cross} alt="" className="block mx-auto" />
         <h1 className="text-slate-800 text-3xl my-6 uppercase text-center">
-          Invalid Credit Card Number!
+          { errorMessage }
         </h1>
         <p className="text-slate-400 text-center">
-          the credit card number you enterd is invalid
+          please fix the error and try again
         </p>
         <button
           onClick={() => setConfirmed(false)}
