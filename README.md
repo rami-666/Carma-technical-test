@@ -212,3 +212,7 @@ A screen recording is present witha  "demo" of how the application works along w
 For this application to become industry standard, and since we are dealing with very sensitive data, we should encrypt the data before sending it to the backend to avoid packet sniffers and escape the man in the middle attack. 
 
 Another improvement is adding the keys and initialization vectors and connection string parameters to a .env file to be imported from there.
+
+## Additional Notes
+
+The UI was built using react (make sure to install dependencies for the react app inside client directory before making any changes)
