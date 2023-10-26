@@ -190,3 +190,25 @@ npm install
 ```bash
 npm start
 ```
+
+After you completed the steps above, the application should be visibile on the following URL
+
+```bash
+http://127.0.0.1:3000/
+```
+
+to decrypt and retrieve all credit cards in the database (for demonstration purposes), send a get request to the following endpoint
+
+```bash
+http://127.0.0.1:3000/creditCards
+```
+
+## Application Screenshots
+
+A screen recording is present witha  "demo" of how the application works along with screenshots of the encrypted data inside the screenshots folder
+
+## TODO/Improvements
+
+For this application to become industry standard, and since we are dealing with very sensitive data, we should encrypt the data before sending it to the backend to avoid packet sniffers and escape the man in the middle attack. 
+
+Another improvement is adding the keys and initialization vectors and connection string parameters to a .env file to be imported from there.

@@ -3,6 +3,7 @@ import bgMobile from "./images/bg-main-mobile.png";
 import bgDesktop from "./images/bg-main-desktop.png";
 import logo from "./images/card-logo.svg";
 import tick from "./images/icon-complete.svg";
+import cross from "./images/icon-failed.svg";
 import { format } from "date-fns";
 
 export default function App() {
@@ -181,7 +182,7 @@ function InvalidCard({ setConfirmed }) {
   return (
     <>
       <div className="thank-you flex flex-col items-center justify-center lg:h-screen max-w-lg mx-auto">
-        <img src={tick} alt="" className="block mx-auto" />
+        <img src={cross} alt="" className="block mx-auto" />
         <h1 className="text-slate-800 text-3xl my-6 uppercase text-center">
           Invalid Credit Card Number!
         </h1>

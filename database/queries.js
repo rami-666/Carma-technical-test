@@ -1,7 +1,9 @@
 const { Pool } = require('pg');
 const crypto = require('crypto');
 const credentials = require('./databaseConstants');
-const initDb = require('./database')
+const initDb = require('./database');
+const fs = require('fs');
+const file = './keyFile'
 const async = require('hbs/lib/async');
 
 initDb();
@@ -9,8 +11,27 @@ initDb();
 const pool = new Pool(credentials);
 //TODO: mention that these should be placed as environment variables
 const algorithm = 'aes-256-cbc';
-const key = crypto.randomBytes(32); //TODO: put this in a .env file or hard code it
-const iv = crypto.randomBytes(16);
+// const key = crypto.randomBytes(32); //TODO: put this in a .env file or hard code it
+// const iv = crypto.randomBytes(16);
+
+let key;
+let iv;
+
+if (fs.existsSync(file)) {
+    // If file exists, read the key and IV
+    const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+    key = Buffer.from(data.key, 'hex');
+    iv = Buffer.from(data.iv, 'hex');
+} else {
+    // If file does not exist, generate a new key and IV and write them to the file
+    key = crypto.randomBytes(32);
+    iv = crypto.randomBytes(16);
+    const data = {
+        key: key.toString('hex'),
+        iv: iv.toString('hex')
+    };
+    fs.writeFileSync(file, JSON.stringify(data));
+}
 
 const insertData = async(card_number,cvv, card_holder_name, expiration_date) => {
     const query = 'INSERT INTO credit_cards(card_number, cvv, card_holder_name, expiration_date) VALUES(\$1, \$2, \$3, \$4) RETURNING *';
