@@ -9,6 +9,11 @@ const async = require('hbs/lib/async');
 initDb();
 
 const pool = new Pool(credentials);
+
+///////////////////////////////////////////////////////////////
+//                      Encryption Parameters               //
+/////////////////////////////////////////////////////////////
+
 const algorithm = 'aes-256-cbc';
 let key;
 let iv;
@@ -28,6 +33,10 @@ if (fs.existsSync(file)) {
     };
     fs.writeFileSync(file, JSON.stringify(data));
 }
+
+///////////////////////////////////////////////////////////////
+//                      Main Queries                        //
+/////////////////////////////////////////////////////////////
 
 const insertData = async(card_number,cvv, card_holder_name, expiration_date) => {
     const query = 'INSERT INTO credit_cards(card_number, cvv, card_holder_name, expiration_date) VALUES(\$1, \$2, \$3, \$4) RETURNING *';
@@ -62,6 +71,10 @@ const selectData = async() =>{
     }
 };
 
+///////////////////////////////////////////////////////////////
+//                      Encryption/Decryption               // 
+//                         helper funcitons                //
+////////////////////////////////////////////////////////////
 
 const encrypt = (text) => {
     const cipher = crypto.createCipheriv(algorithm, key, iv);

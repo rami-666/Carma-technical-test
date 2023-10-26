@@ -1,7 +1,7 @@
 const { Client } = require('pg')
 const credentials = require('./databaseConstants')
 
-//TODO: mention that there can be an improvement made to encrypt data before sending to backend to avoid network sniffers
+//This module initializes a connection with the postgresql server and creates the credit cards table if needed
 
 const client = new Client(credentials);
 

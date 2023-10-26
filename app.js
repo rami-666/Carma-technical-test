@@ -24,10 +24,12 @@ app.get('/creditCards', async(req, res) =>{
   }
 })
 
+// validating and recording a new credit card entry
 app.post('/creditCards', async (req, res) => {
   console.log("post request recieved: ", req.body)
   const { card_number, cvv, card_holder_name, expiration_date } = req.body;
 
+  //verify card number
   if(!luhn(card_number)) {
     console.log("invalid card")
     res.status(400).send({ error: "Invalid credit card number" })
