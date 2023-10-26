@@ -9,11 +9,7 @@ const async = require('hbs/lib/async');
 initDb();
 
 const pool = new Pool(credentials);
-//TODO: mention that these should be placed as environment variables
 const algorithm = 'aes-256-cbc';
-// const key = crypto.randomBytes(32); //TODO: put this in a .env file or hard code it
-// const iv = crypto.randomBytes(16);
-
 let key;
 let iv;
 
