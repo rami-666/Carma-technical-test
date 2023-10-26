@@ -4,7 +4,6 @@ const credentials = require('./databaseConstants');
 const initDb = require('./database');
 const fs = require('fs');
 const file = './keyFile'
-const async = require('hbs/lib/async');
 
 initDb();
 

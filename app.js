@@ -1,10 +1,7 @@
-const async = require('hbs/lib/async');
-const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require("path")
-const luhn = require("js-luhn")
-// const initDb = require('./database/database');
+const path = require("path");
+const luhn = require("js-luhn");
 
 const { insertData, selectData } = require('./database/queries')
 
